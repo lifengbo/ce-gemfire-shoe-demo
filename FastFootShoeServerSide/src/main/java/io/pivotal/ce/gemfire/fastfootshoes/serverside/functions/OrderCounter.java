@@ -6,6 +6,7 @@ package io.pivotal.ce.gemfire.fastfootshoes.serverside.functions;
 import io.pivotal.ce.gemfire.fastfootshoes.model.Customer;
 import io.pivotal.ce.gemfire.fastfootshoes.model.Transaction;
 import io.pivotal.ce.gemfire.fastfootshoes.repositories.TransactionRepository;
+import io.pivotal.ce.gemfire.fastfootshoes.serverside.ReferenceHelper;
 
 import java.util.Calendar;
 import java.util.Collection;
@@ -17,6 +18,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.gemfire.function.annotation.GemfireFunction;
 import org.springframework.stereotype.Component;
+
+import com.gemstone.gemfire.pdx.internal.PdxInstanceImpl;
 
 /**
  * @author lshannon
@@ -32,7 +35,8 @@ public class OrderCounter {
 	private Calendar txn_date = Calendar.getInstance();
 	
 	@GemfireFunction
-	public int countTransactions(Customer customer) {
+	public int countTransactions(Object customerObj) {
+		Customer customer = resolveReferenceCust(customerObj);
 		System.out.println("Counting orders for: " + customer.toString());
 		Collection<Transaction> completedTransactions = transactionRepository.findCompletedOrders(customer.getId());
 		System.out.println("Completed Transactions: " + completedTransactions.size());
@@ -40,7 +44,8 @@ public class OrderCounter {
 		int count = 0;
 		//DateTime now = new DateTime();
 		//go through the orders and increment the count
-		for (Transaction txn : completedTransactions) {
+		for (Object txnObj : completedTransactions) {
+			Transaction txn = resolveReferenceTxn(txnObj);
 			//did it occur this year
 			//Period periodDifference = new Period(now, new DateTime(txn.getTransactionDate().getTime()));
 			now.setTime(new Date());
@@ -96,5 +101,23 @@ public class OrderCounter {
 		cal1.setTime(orderDate);
 		return cal1.get(Calendar.DAY_OF_YEAR);
 	}
+	
+	private Transaction resolveReferenceTxn(Object obj) {
+		if (obj instanceof PdxInstanceImpl) {
+			return ReferenceHelper.toObject(obj, Transaction.class);
+		}
+		else {
+			return (Transaction)obj;
+		}
+}
+	
+	private Customer resolveReferenceCust(Object obj) {
+		if (obj instanceof PdxInstanceImpl) {
+			return ReferenceHelper.toObject(obj, Customer.class);
+		}
+		else {
+			return (Customer)obj;
+		}
+}
 	
 }
