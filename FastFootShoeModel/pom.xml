@@ -14,7 +14,7 @@
 	</repositories>
 	
 	 <properties>
-	 	<gemfire>7.0.2</gemfire>
+	 	<gemfire>8.0.0</gemfire>
 	 	<spring.data.gemfire>1.5.0.RELEASE</spring.data.gemfire>
 	 	<spring-data-commons-core>1.4.1.RELEASE</spring-data-commons-core>
 	 	<spring>4.1.0.RELEASE</spring>

@@ -21,6 +21,10 @@ import com.gemstone.gemfire.pdx.internal.PdxInstanceImpl;
 /**
  * This will happen on the same thread as the put to the transaction region is
  * using
+ * NOTE: This should be part of the transaction, however we needed a use case for listeners
+ * and this seemed like a good one
+ * 
+ * - Added a suggested purchase (ie: people who bought this also bought...) listener
  * 
  * @author lshannon
  *

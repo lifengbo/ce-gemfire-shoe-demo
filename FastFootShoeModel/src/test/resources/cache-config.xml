@@ -31,7 +31,7 @@
 		<constructor-arg value="io.pivotal.ce.gemfire.fastfootshoes.model.*"/>
 	</bean>
 
-	<gfe:cache pdx-serializer-ref="pdxSerializer" properties-ref="peerCacheConfigurationSettings" />
+	<gfe:cache pdx-read-serialized="true" pdx-serializer-ref="pdxSerializer" properties-ref="peerCacheConfigurationSettings" />
 	
 	<gfe:cache-server auto-startup="true" cache-ref="gemfireCache" />
 			

@@ -8,7 +8,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.gemfire.mapping.Region;
 
 /**
- * Contains all the data relevant to a individual customer
  * @author lshannon
  */
 @Region("Customer")
