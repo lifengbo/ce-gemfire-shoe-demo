@@ -11,19 +11,23 @@ import io.pivotal.ce.gemfire.fastfootshoes.repositories.MarkUpRepository;
 import io.pivotal.ce.gemfire.fastfootshoes.repositories.ProductRepository;
 import io.pivotal.ce.gemfire.fastfootshoes.repositories.TransactionRepository;
 import io.pivotal.ce.gemfire.fastfootshoes.serverside.functions.OrderCounterCaller;
-
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+/**
+ * This services handles all the operations around a transaction
+ * @author lshannon
+ *
+ */
 
 @Service
 public class TransactionDataService {
+	
+	private static final int NO_DISCOUNT_MARK_UP = 15;
 
 	@Autowired
 	private ProductRepository productRepository;
@@ -45,6 +49,13 @@ public class TransactionDataService {
 	private OrderCounterCaller orderCounterCaller;
 	
 
+	/**
+	 * The order is placed here
+	 * @param customerId
+	 * @param productId
+	 * @param quantity
+	 * @return
+	 */
 	public boolean placeOrder(String customerId, String productId, int quantity) {
 				// check if there is enough quantity
 				Product product = productRepository.findById(productId);
@@ -140,11 +151,12 @@ public class TransactionDataService {
 		txn.setOrderStatus("open");
 		txn.setProductId(productId);
 		txn.setQuantity(quantity);
+		System.out.println("Doing a transaction with WholeSale: " +product.getWholeSalePrice() + " Mark Up Value: "+ markupValue);
 		if (markupValue > 0) {
 			txn.setRetailPrice(product.getWholeSalePrice() * markupValue);
 		}
 		else {
-			txn.setRetailPrice(product.getWholeSalePrice());
+			txn.setRetailPrice(product.getWholeSalePrice() * NO_DISCOUNT_MARK_UP);
 		}
 		txn.setTransactionDate(new Date());
 		//commit the transaction

@@ -34,12 +34,12 @@
 
 	<gfe:client-region id="Customer"  pool-name="gemfirePool"/>
 	<gfe:client-region id="Alert"  pool-name="gemfirePool"/>
-	<gfe:client-region id="Product" pool-name="gemfirePool" shortcut="PROXY" />
+	<gfe:client-region id="Product" pool-name="gemfirePool" />
 	<gfe:client-region id="Transaction" pool-name="gemfirePool" />
 	<gfe:client-region id="MarkUp" pool-name="gemfirePool" />
 	
 	<gfe:pool id="gemfirePool" subscription-enabled="true">
-		<gfe:locator host="172.16.6.20" port="10334" />
+		<gfe:locator host="127.0.0.1" port="10334" />
 	</gfe:pool>
 
 </beans>

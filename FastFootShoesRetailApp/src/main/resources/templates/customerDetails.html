@@ -68,14 +68,16 @@
 	        <th>Date</th>
 	        <th>Product</th>
 	        <th>Quantity</th>
-	        <th>Retail Price</th>
+	        <th>Retail Price Per Unit</th>
+	        <th>Total Cost</th>
 	        <th>Order Status</th>
 	      </tr>
 	      <tr th:each="txn : ${transactions}">
 	        <td th:text="${txn.transactionDate}">Date</td>
 	        <td th:text="${txn.productId}">Product Id</td>
 	        <td th:text="${txn.quantity}">Quantity</td>
-	        <td th:text="${txn.retailPrice}">Retail Price</td>
+	        <td th:text="${txn.retailPrice}">Retail Price Per Unit</td>
+	        <td th:text="${txn.quantity * txn.retailPrice}">Total Cost</td>
 	        <td th:text="${txn.orderStatus}">Status</td>
 	      </tr>
 	    </table>

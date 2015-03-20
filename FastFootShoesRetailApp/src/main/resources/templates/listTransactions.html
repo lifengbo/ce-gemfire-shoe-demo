@@ -20,6 +20,7 @@
 				<th>Product Id</th>
 				<th>Quantity</th>
 				<th>Retail Price</th>
+				<th>Total Price</th>
 				<th>Order Status</th>
 				<th>Mark Up</th>
 			</tr>
@@ -30,19 +31,21 @@
 				<th>Product Id</th>
 				<th>Quantity</th>
 				<th>Retail Price</th>
+				<th>Total Price</th>
 				<th>Order Status</th>
 				<th>Mark Up</th>
 			</tr>
 		</tfoot>
 			<tbody>
 			<tr th:each="transaction : ${transactions}">
-				<td th:text="${transaction.customerId}">Brand</td>
-				<td th:text="${transaction.transactionDate}">Type</td>
-				<td th:text="${transaction.productId}">Gender</td>
-				<td th:text="${transaction.quantity}">Color</td>
-				<td th:text="${transaction.retailPrice}">Size</td>
-				<td th:text="${transaction.orderStatus}">Stock On Hand</td>
-				<td th:text="${transaction.markUp}">Whole Sale Cost</td>
+				<td th:text="${transaction.customerId}">Customer ID</td>
+				<td th:text="${transaction.transactionDate}">Date</td>
+				<td th:text="${transaction.productId}">Product ID</td>
+				<td th:text="${transaction.quantity}">Quantity</td>
+				<td th:text="${transaction.retailPrice}">Retail Price</td>
+				<td th:text="${transaction.retailPrice * transaction.quantity}">Retail Price</td>
+				<td th:text="${transaction.orderStatus}">Order Status</td>
+				<td th:text="${transaction.markUp}">Mark Up</td>
 			</tr>
 			</tbody>
 		</table>
