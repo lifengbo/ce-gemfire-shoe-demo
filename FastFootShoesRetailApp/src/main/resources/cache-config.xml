@@ -32,7 +32,7 @@
 	<gfe:client-cache  pool-name="gemfirePool" pdx-serializer-ref="reflection-pdx-serializer"/>
 
 
-	<gfe:client-region id="Customer"  pool-name="gemfirePool"/>
+	<gfe:client-region id="Customer"  pool-name="gemfirePool" />
 	<gfe:client-region id="Alert"  pool-name="gemfirePool"/>
 	<gfe:client-region id="Product" pool-name="gemfirePool" />
 	<gfe:client-region id="Transaction" pool-name="gemfirePool" />

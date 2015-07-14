@@ -52,6 +52,9 @@
 
 	<!-- turn on annotation to make use of repositories and another annotated features -->
 	<gfe:annotation-driven />
+	
+	<gfe:disk-store id="diskStore" queue-size="50" auto-compact="true" max-oplog-size="10" time-interval="9999" />
+	
 
 	<!-- allow for detection of Spring Repositories -->
 	<gfe-data:repositories base-package="io.pivotal.ce.gemfire.fastfootshoes.repositories" />
